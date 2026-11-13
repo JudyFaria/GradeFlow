@@ -10,7 +10,8 @@ MODULOS_PROIBIDOS = frozenset({
 })
 
 
-def imports_proibidos(codigo: str) -> list[str]:
+def imports_proibidos(codigo: str,
+                      proibidos: frozenset = MODULOS_PROIBIDOS) -> list[str]:
     """Devolve os módulos proibidos importados por um trecho de código."""
     encontrados = []
     for no in ast.walk(ast.parse(codigo)):
@@ -21,7 +22,7 @@ def imports_proibidos(codigo: str) -> list[str]:
         else:
             continue
         encontrados += [n for n in nomes
-                        if n.split(".")[0] in MODULOS_PROIBIDOS]
+                        if n.split(".")[0] in proibidos]
     return encontrados
 
 

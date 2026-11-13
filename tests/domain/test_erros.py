@@ -19,3 +19,12 @@ def test_erro_especifico_derivado_e_capturado_como_erro_de_dominio():
         raise ErroEspecifico("falhou")
     except ErroDeDominio as erro:
         assert str(erro) == "falhou"
+
+
+def test_erro_nao_encontrado_e_um_erro_de_dominio_com_a_mensagem():
+    from domain.erros import ErroNaoEncontrado
+
+    erro = ErroNaoEncontrado("Planejamento não encontrado")
+
+    assert isinstance(erro, ErroDeDominio)
+    assert str(erro) == "Planejamento não encontrado"

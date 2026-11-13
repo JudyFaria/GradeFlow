@@ -42,7 +42,7 @@ Legenda: **[P]** comportamento herdado a preservar · **[C]** quirk do protótip
 
 ## 1. Infraestrutura do projeto
 
-- [ ] Criar `domain/`, `use_cases/`, `infra/`, `app/` conforme a constituição, com a montagem das dependências na inicialização.
+- [x] Criar `domain/`, `use_cases/`, `infra/`, `app/` conforme a constituição, com a montagem das dependências na inicialização.
 - [ ] Configurar FastAPI, PostgreSQL, migrações de schema, `pytest` e `flake8`.
 - [ ] Servir o front (HTML, CSS e JS puros) pelo FastAPI com `StaticFiles`.
 - [ ] Criar a porta `Relogio` (`hoje()`) e injetá-la no domínio; o protótipo chama `DateTime.now()` em três pontos (§9.1) **[N]**.
