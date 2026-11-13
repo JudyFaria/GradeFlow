@@ -20,8 +20,8 @@ Interfaces de repositório necessárias:
 
 ## Infra (`infra/`)
 
-- Tabelas/colunas no SQLite:
-- Implementação: `infra/repositories/[nome]_repository_sqlite.py`
+- Tabelas/colunas no PostgreSQL:
+- Implementação: `infra/repositories/[nome]_repository_postgres.py`
 
 ## Interface web (`app/routes/`)
 

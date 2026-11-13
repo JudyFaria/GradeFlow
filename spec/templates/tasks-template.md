@@ -16,11 +16,11 @@ Marque `[x]` ao concluir. Escreva os testes antes da implementação.
 
 ## Infra
 
-- [ ] T6: Implementar o repositório SQLite em `infra/repositories/`
+- [ ] T6: Implementar o repositório PostgreSQL em `infra/repositories/`
 
 ## Web
 
-- [ ] T7: Criar a rota em `app/routes/` e registrar o blueprint em `app/main.py`
+- [ ] T7: Criar a rota em `app/routes/` e registrar o router em `app/main.py` (`include_router`)
 
 ## Validação
 

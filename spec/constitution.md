@@ -8,12 +8,12 @@ As dependências de código apontam sempre para dentro. Camadas internas não
 conhecem nem importam detalhes das camadas externas:
 
 ```
-app/ (Flask, rotas)  →  use_cases/  →  domain/
+app/ (FastAPI, rotas)  →  use_cases/  →  domain/
 infra/ (PostgreSQL, repositórios)  →  interfaces definidas em use_cases/  →  domain/
 ```
 
 - `domain/`: entidades, objetos de valor e regras de negócio puras. Não importa
-  Flask, PostgreSQL, bibliotecas de infraestrutura nem outras camadas externas.
+  FastAPI, PostgreSQL, bibliotecas de infraestrutura nem outras camadas externas.
 - `use_cases/`: coordena uma ação de negócio por caso de uso. Depende do domínio
   e de abstrações necessárias, nunca de implementações concretas.
 - `infra/`: implementa persistência e integrações externas, incluindo os
@@ -24,7 +24,7 @@ infra/ (PostgreSQL, repositórios)  →  interfaces definidas em use_cases/  →
   de uso recebem suas dependências por parâmetro, sem criar conexões ou
   repositórios concretos por conta própria.
 - Dados e erros são traduzidos nas fronteiras entre camadas. Detalhes de HTTP,
-  SQL e Flask não vazam para o domínio nem para os casos de uso.
+  SQL e FastAPI não vazam para o domínio nem para os casos de uso.
 - Novas integrações externas são acessadas por abstrações consumidas pela
   camada interna e implementadas em `infra/`.
 
