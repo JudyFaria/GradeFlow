@@ -1,3 +1,5 @@
+from datetime import date
+
 from fastapi import APIRouter, Depends
 from fastapi.testclient import TestClient
 
@@ -13,8 +15,12 @@ def test_montar_dependencias_roda_sem_rede_nem_banco():
     assert isinstance(montar_dependencias(), Dependencias)
 
 
+def test_conteiner_expoe_o_relogio_do_sistema():
+    assert montar_dependencias().relogio.hoje() == date.today()
+
+
 def test_rotas_recebem_o_conteiner_entregue_a_criar_app():
-    conteiner = Dependencias()
+    conteiner = montar_dependencias()
     roteador = APIRouter()
 
     @roteador.get("/conteiner")
@@ -22,13 +28,12 @@ def test_rotas_recebem_o_conteiner_entregue_a_criar_app():
             recebido: Dependencias = Depends(obter_dependencias)):
         return {"mesmo": recebido is conteiner}
 
-    aplicacao = criar_app(conteiner)
-    aplicacao.include_router(roteador)
+    aplicacao = criar_app(conteiner, [roteador])
 
     assert TestClient(aplicacao).get("/conteiner").json() == {"mesmo": True}
 
 
 def test_conteiner_fica_em_app_state():
-    conteiner = Dependencias()
+    conteiner = montar_dependencias()
 
     assert criar_app(conteiner).state.dependencias is conteiner

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.testclient import TestClient
 
-from app.dependencias import Dependencias
+from app.dependencias import montar_dependencias
 from app.main import criar_app
 from domain.erros import ErroDeDominio, ErroNaoEncontrado
 
@@ -24,8 +24,7 @@ def inesperado():
 
 
 def cliente_com_rotas_de_erro() -> TestClient:
-    aplicacao = criar_app(Dependencias())
-    aplicacao.include_router(roteador)
+    aplicacao = criar_app(montar_dependencias(), [roteador])
     return TestClient(aplicacao, raise_server_exceptions=False)
 
 

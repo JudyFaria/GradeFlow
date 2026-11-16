@@ -3,6 +3,7 @@ from pathlib import Path
 from tests.domain.test_pureza_do_dominio import (
     MODULOS_PROIBIDOS,
     imports_proibidos,
+    leituras_do_relogio,
 )
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -25,6 +26,16 @@ def test_use_cases_nao_importam_camadas_externas_nem_frameworks():
     proibidos = MODULOS_PROIBIDOS - {"use_cases"}
 
     assert violacoes_da_camada("use_cases", proibidos) == []
+
+
+def test_use_cases_nao_leem_o_relogio_do_sistema():
+    violacoes = []
+    for arquivo in sorted((RAIZ / "use_cases").rglob("*.py")):
+        codigo = arquivo.read_text(encoding="utf-8")
+        for chamada in leituras_do_relogio(codigo):
+            violacoes.append(f"{arquivo.relative_to(RAIZ)} chama '{chamada}'")
+
+    assert violacoes == []
 
 
 def test_infra_nao_importa_app():
