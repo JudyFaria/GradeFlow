@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 
-from app.dependencias import Dependencias
+from app.dependencias import montar_dependencias
 from app.main import criar_app
 
 
 def test_saude_responde_ok_sem_login():
-    cliente = TestClient(criar_app(Dependencias()))
+    cliente = TestClient(criar_app(montar_dependencias()))
 
     resposta = cliente.get("/saude")
 

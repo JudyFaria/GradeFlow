@@ -66,8 +66,14 @@ Movimentação de cartão ≤ 1 s (p95, grade de até 80 disciplinas); grafo ≤
 As verificações (pré/co-requisitos, créditos, vagas, choque de horário, limites de eletivas) ficam no domínio, isoladas da interface, e cada fluxo de exceção dos casos de uso tem pelo menos um teste (RNF-16).
 
 ## Comandos
-- `pytest`: roda os testes.
+- `pip install -r requirements.txt`: instala as dependências.
+- `uvicorn app.main:app --reload`: roda a aplicação (front em `/`, API em `/saude` etc.).
+- `pytest`: roda os testes. Os que precisam de PostgreSQL só rodam com `TEST_DATABASE_URL` definida; sem ela são ignorados.
 - `flake8`: verifica o estilo (PEP-8).
+- `DATABASE_URL=... python -m infra.migrar`: aplica as migrações pendentes (`infra/migracoes/*.sql`); idempotente, sempre por comando, nunca na subida da aplicação.
+- Migrar o banco de produção (Neon): no seu terminal, `DATABASE_URL='<connection string do painel do Neon>' python -m infra.migrar`. A URL nunca entra no repositório nem em conversas.
+- Verificar o deploy (preview ou produção), com `URL` do deploy: `curl -si URL/` (HTML e cabeçalho `content-security-policy: default-src 'self'`), `curl -s URL/saude` (`{"status":"ok"}`), `curl -s URL/nao-existe` (404 com `detail`) e `curl -sI http://HOST/` (deve redirecionar para HTTPS).
+- Popular o banco: a definir com a carga de dados (seção 2 do `TO-DO.md`).
 
 ## Tecnologias
 Python, FastAPI, PostgreSQL (Neon em produção), pytest e flake8 no backend; HTML, CSS e JavaScript puros no frontend, sem framework nem etapa de build.

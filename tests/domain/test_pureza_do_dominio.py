@@ -26,6 +26,25 @@ def imports_proibidos(codigo: str,
     return encontrados
 
 
+LEITURAS_DO_RELOGIO = frozenset({"now", "today", "utcnow"})
+
+
+def leituras_do_relogio(codigo: str) -> list[str]:
+    """Devolve as chamadas que leem a data/hora do sistema (R8)."""
+    encontradas = []
+    for no in ast.walk(ast.parse(codigo)):
+        if not (isinstance(no, ast.Call)
+                and isinstance(no.func, ast.Attribute)):
+            continue
+        funcao = no.func
+        e_time_time = (funcao.attr == "time"
+                       and isinstance(funcao.value, ast.Name)
+                       and funcao.value.id == "time")
+        if funcao.attr in LEITURAS_DO_RELOGIO or e_time_time:
+            encontradas.append(ast.unparse(funcao))
+    return encontradas
+
+
 def test_modulos_do_dominio_nao_importam_camadas_externas():
     violacoes = []
     for arquivo in sorted(PASTA_DOMINIO.rglob("*.py")):
@@ -52,3 +71,25 @@ def test_aceita_imports_da_biblioteca_padrao_e_do_proprio_dominio():
     codigo = "import dataclasses\nfrom domain.erros import ErroDeDominio"
 
     assert imports_proibidos(codigo) == []
+
+
+def test_dominio_nao_le_o_relogio_do_sistema():
+    violacoes = []
+    for arquivo in sorted(PASTA_DOMINIO.rglob("*.py")):
+        codigo = arquivo.read_text(encoding="utf-8")
+        for chamada in leituras_do_relogio(codigo):
+            violacoes.append(
+                f"{arquivo.relative_to(PASTA_DOMINIO.parent)} "
+                f"chama '{chamada}' (a data entra por injeção)")
+
+    assert violacoes == []
+
+
+def test_detecta_leitura_do_relogio_do_sistema():
+    assert leituras_do_relogio("date.today()") == ["date.today"]
+    assert leituras_do_relogio("datetime.now()") == ["datetime.now"]
+    assert leituras_do_relogio("time.time()") == ["time.time"]
+
+
+def test_nao_confunde_metodo_comum_com_leitura_do_relogio():
+    assert leituras_do_relogio("relogio.hoje()") == []

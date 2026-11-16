@@ -1,0 +1,6 @@
+# Fora do pacote implantado: a função só precisa de app/, domain/,
+# use_cases/, infra/ e frontend/.
+docs/
+spec/
+tests/
+DOCUMENTO_PONTE.md
