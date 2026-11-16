@@ -71,6 +71,8 @@ As verificações (pré/co-requisitos, créditos, vagas, choque de horário, lim
 - `pytest`: roda os testes. Os que precisam de PostgreSQL só rodam com `TEST_DATABASE_URL` definida; sem ela são ignorados.
 - `flake8`: verifica o estilo (PEP-8).
 - `DATABASE_URL=... python -m infra.migrar`: aplica as migrações pendentes (`infra/migracoes/*.sql`); idempotente, sempre por comando, nunca na subida da aplicação.
+- Migrar o banco de produção (Neon): no seu terminal, `DATABASE_URL='<connection string do painel do Neon>' python -m infra.migrar`. A URL nunca entra no repositório nem em conversas.
+- Verificar o deploy (preview ou produção), com `URL` do deploy: `curl -si URL/` (HTML e cabeçalho `content-security-policy: default-src 'self'`), `curl -s URL/saude` (`{"status":"ok"}`), `curl -s URL/nao-existe` (404 com `detail`) e `curl -sI http://HOST/` (deve redirecionar para HTTPS).
 - Popular o banco: a definir com a carga de dados (seção 2 do `TO-DO.md`).
 
 ## Tecnologias
