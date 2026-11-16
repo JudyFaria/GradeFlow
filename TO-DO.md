@@ -51,10 +51,10 @@ Legenda: **[P]** comportamento herdado a preservar · **[C]** quirk do protótip
 ### 1.1 Deploy
 
 - [ ] Criar o projeto na Vercel ligado ao repositório, com deploy automático na `main`.
-- [ ] Criar o banco no Neon pela integração do Marketplace da Vercel e ler a conexão de `DATABASE_URL`.
-- [ ] Conferir que o FastAPI com `StaticFiles` serve o front na Vercel; se não servir, mover os arquivos estáticos para o formato que a Vercel serve direto.
-- [ ] Rodar as migrações de schema e o seed no Neon fora do ciclo de requisição (o sistema de arquivos da Vercel é somente leitura).
-- [ ] Configurar as variáveis de ambiente de produção (`DATABASE_URL` e o segredo de sessão/token) só no painel da Vercel, nunca no repositório.
+- [x] Criar o banco no Neon pela integração do Marketplace da Vercel e ler a conexão de `DATABASE_URL`.
+- [x] Conferir que o FastAPI com `StaticFiles` serve o front na Vercel; se não servir, mover os arquivos estáticos para o formato que a Vercel serve direto.
+- [x] Rodar as migrações de schema e o seed no Neon fora do ciclo de requisição (o sistema de arquivos da Vercel é somente leitura).
+- [x] Configurar as variáveis de ambiente de produção (`DATABASE_URL` e o segredo de sessão/token) só no painel da Vercel, nunca no repositório.
 
 ## 2. Catálogo de disciplinas e carga de dados (§3)
 

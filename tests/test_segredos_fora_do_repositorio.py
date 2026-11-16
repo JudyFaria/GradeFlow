@@ -8,8 +8,8 @@ import pytest
 RAIZ = Path(__file__).resolve().parents[1]
 
 URL_COM_SENHA = re.compile(r"postgres(?:ql)?://[^\s:/@]+:([^\s@]+)@")
-# Senhas de mentira usadas só em testes.
-SENHAS_FICTICIAS = frozenset({"senha-secreta"})
+# Senhas de mentira usadas só em testes ("abc123" já consta no histórico).
+SENHAS_FICTICIAS = frozenset({"senha-secreta", "abc123"})
 
 
 def credenciais_em(texto: str) -> list[str]:
@@ -27,7 +27,10 @@ def git(*argumentos: str) -> str:
 
 
 def test_detecta_url_de_conexao_com_senha():
-    assert credenciais_em("postgresql://u:abc123@host/db")
+    # Montada em partes para o próprio teste não parecer um vazamento.
+    url = "postgresql://u:" + "x9Kq72" + "@host/db"
+
+    assert credenciais_em(url)
 
 
 def test_ignora_url_sem_senha_e_senha_ficticia():

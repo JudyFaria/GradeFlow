@@ -15,14 +15,14 @@ Legenda: **[Claude]** feito no repositório; **[Você]** feito nos painéis/cont
 
 ## Contas e painéis
 
-- [ ] T6 [Você]: Importar o repositório na Vercel (produção = `main`)
-- [ ] T7 [Você]: Adicionar o Neon pela integração do Marketplace e conferir `DATABASE_URL` no painel
-- [ ] T8 [Você]: Rodar `python -m infra.migrar` com a `DATABASE_URL` do Neon (CA5, CA8)
+- [x] T6 [Você]: Importar o repositório na Vercel (produção = `main`)
+- [x] T7 [Você]: Adicionar o Neon pela integração do Marketplace e conferir `DATABASE_URL` no painel
+- [x] T8 [Você]: Rodar `python -m infra.migrar` com a `DATABASE_URL` do Neon (CA5, CA8)
 
 ## Verificação
 
-- [ ] T9 [Você + Claude]: Deploy de preview a partir de uma branch, com push pedido por você (R4, D4); conferir `/`, `/saude`, 404, CSP e HTTPS (CA2 a CA4)
-- [ ] T10 [Claude]: Se `/` não servir (CA9), mover os estáticos para `public/` e ajustar `app/main.py` e a CSP
+- [x] T9 [Você + Claude]: Deploy de preview a partir de uma branch, com push pedido por você (R4, D4); conferir `/`, `/saude`, 404, CSP e HTTPS (CA2 a CA4)
+- [x] T10 [Claude]: (não foi necessária: o `StaticFiles` serviu o front no preview) Se `/` não servir (CA9), mover os estáticos para `public/` e ajustar `app/main.py` e a CSP
 - [ ] T11 [Você]: Push na `main` e conferir o deploy de produção (CA1)
 - [ ] T12: Marcar os itens da seção 1.1 do `TO-DO.md`
 
